@@ -10,7 +10,9 @@ class Header extends Component {
         return (
             <div>
                 <div className="navbar-fixed">
-                    <nav className="nav-wrapper indigo">
+                    <nav className="nav-wrapper" style={{
+                        backgroundColor: "#4c3c3c"
+                    }}>
                         <div className="container" style={{minWidth: "85%"}}>
                             <ul className="left">
                                 <a href="#" data-target="slide-out" className="sidenav-trigger show-on-med">
@@ -37,7 +39,9 @@ class Header extends Component {
                 </div>
                 <ul id="slide-out" className="sidenav">
                     <li>
-                        <div className="user-view indigo lighten-1 darken-4">
+                        <div className="user-view lighten-1 darken-4" style={{
+                            backgroundColor: "#5f4c4c"
+                        }}>
                             <a href="#!">
                                 <img className="circle" src="/img1.jpg" />
                             </a>
