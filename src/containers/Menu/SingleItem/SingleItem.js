@@ -4,11 +4,13 @@ const SingleItem = (props) => {
     return (
         <div className="card horizontal" style={{
             height: "100px",
-            borderRadius: '10px'
-        }}>
+            borderRadius: '10px',
+            margin: "5px auto"
+        }} onClick={() => props.click(props.pizza)}>
           <div className="card-image">
             <img style={{
-                height: "100px"
+                height: "100px",
+                width: "187.5px"
             }} src={props.pizza.image} alt="item" />
             <p className="card-title btn red white-text" style={{
                         fontSize: "14px",
@@ -27,29 +29,6 @@ const SingleItem = (props) => {
               </div>
           </div>
         </div>
-        /* <li className="card left-align" style={{
-            margin: "5px auto",
-            padding: "0px",
-            display: "flex",
-            flexDirection: "row"
-        }}>
-            <div>
-                <img style={{
-                    height: "80px"
-                }} className="responsive-img" src={props.pizza.image} alt="item" />
-            </div>
-            <div style={{
-                display: "flex",
-                flexDirection: "column"
-            }}>
-                <span className="title" style={{fontWeight: "bold"}}>
-                    {props.pizza.name}
-                </span>
-                <p className="btn red" style={{
-                    width: "auto"
-                }}>$ {props.pizza.price}</p>
-            </div>
-        </li> */
     );
 }
  
