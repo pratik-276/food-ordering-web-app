@@ -1,0 +1,3 @@
+export {
+    getAllPizzas
+} from './pizza';
