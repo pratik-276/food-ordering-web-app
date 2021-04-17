@@ -29,22 +29,25 @@ class Menu extends Component {
             name: data.name,
             image: data.image,
             price: data.price,
-            totalPrice: data.price
+            size: "small",
+            totalPrice: data.price,
+            count: "1"
         });
         document.getElementById("itemOpener").click();
     }
     updatePrice = (newState) => {
         let price = parseFloat(this.state.price);
-        if(newState.size=='medium'){
+        if(newState.size==='medium'){
             price += 5;
         }
-        if(newState.size=='large'){
+        if(newState.size==='large'){
             price += 10;
         }
-        if(newState.count == 'NaN'){
+        if(newState.count === 'NaN'){
             price = 0;
         }else{
             price = price * parseInt(newState.count);
+            price = price.toFixed(2);
         }
         this.setState({totalPrice: price+''});
     }
@@ -57,15 +60,30 @@ class Menu extends Component {
         this.updatePrice(newState);
     }
     onCountChange = event => {
-        const newState = {
-            ...this.state,
-            count: parseInt(event.target.value)+''
-        };
-        this.setState(newState);
-        this.updatePrice(newState);
+        if(event.target.value !== ''){
+            const newState = {
+                ...this.state,
+                count: parseInt(event.target.value)+''
+            };
+            this.setState(newState);
+            this.updatePrice(newState);
+        }else{
+            this.setState({count: event.target.value});
+        }
     }
     addToCheckout = () => {
         document.getElementById("proceedOpener").click();
+        const newData = {
+            name: this.state.name,
+            price: this.state.totalPrice,
+            count: this.state.count,
+            size: this.state.size,
+            image: this.state.image
+        }
+        this.props.addToCheckout(newData);
+    }
+    toCheckout = () => {
+        this.props.history.push('/checkout')
     }
     render() { 
         return (
@@ -113,7 +131,7 @@ class Menu extends Component {
                             <div className="input-field right" style={{
                                 width: "60%"
                             }}>
-                                <input type="number" id="count"
+                                <input type="text" id="count"
                                     value={this.state.count}
                                     onChange={this.onCountChange} />
                             </div>
@@ -134,14 +152,15 @@ class Menu extends Component {
                 <button id="proceedOpener" className="modal-trigger" href="#proceed" style={{
                     display: "none"
                 }}></button>
-                <div className="modal" id="proceed">
+                <div className="modal center" id="proceed">
                     <div class="modal-content">
                     <p>Proceed to Checkout?</p>
                     </div>
                     <div class="modal-footer" style={{
                         textAlign: "center"
                     }}>
-                        <button className="btn green modal-action modal-close">Sure</button>
+                        <button className="btn green modal-action modal-close" 
+                            onClick={this.toCheckout}>Sure</button>
                         &nbsp;
                         <button className="btn red modal-action modal-close">Nah, I want more</button>
                     </div>
@@ -159,7 +178,8 @@ const mapStatetoProps = state => {
 
 const mapDispatchtoProps = dispatch => {
     return {
-        getPizzas: () => dispatch(actions.getAllPizzas())
+        getPizzas: () => dispatch(actions.getAllPizzas()),
+        addToCheckout: (data) => dispatch(actions.addToCheckout(data))
     }
 }
 export default connect(mapStatetoProps, mapDispatchtoProps)(Menu);

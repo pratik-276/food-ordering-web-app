@@ -10,12 +10,14 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import axios from 'axios';
 import pizzaReducer from './store/reducers/pizza';
+import orderReducer from './store/reducers/order';
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 axios.defaults.baseURL = "https://food-ordering-app-d8236-default-rtdb.firebaseio.com/";
 
 const rootReducer = combineReducers({
-  pizza: pizzaReducer
+  pizza: pizzaReducer,
+  order: orderReducer
 });
 
 const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));
