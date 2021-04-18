@@ -43,7 +43,7 @@ class Header extends Component {
                             backgroundColor: "#5f4c4c"
                         }}>
                             <a href="#!">
-                                <img className="circle" src="/img1.jpg" />
+                                <img className="circle" src="/img1.jpg" alt="profile" />
                             </a>
                             <a href="#!">
                                 <span className="white-text name">Pratik Mukherjee(Admin)</span>

@@ -1,7 +1,8 @@
 export {
     getAllPizzas,
     addToCheckout,
-    placeOrder
+    placeOrder,
+    delFromCheckout
 } from './pizza';
 
 export {

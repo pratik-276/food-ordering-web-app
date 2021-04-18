@@ -51,3 +51,10 @@ export const placeOrder = (data) => {
             })
     }
 }
+
+export const delFromCheckout = (index) => {
+    return {
+        type: actionTypes.DEL_FROM_CHECKOUT,
+        index: index
+    }
+}
