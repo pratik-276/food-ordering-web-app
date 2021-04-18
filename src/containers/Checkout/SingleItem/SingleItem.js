@@ -37,7 +37,7 @@ const SingleItem = (props) => {
               <div className="valign-wrapper" style={{
                   marginRight: "10px"
               }}>
-                  <i class="material-icons red-text">delete</i>
+                  <i class="material-icons red-text" onClick={props.delete}>delete</i>
               </div>
           </div>
         </div>

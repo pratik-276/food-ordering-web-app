@@ -153,10 +153,10 @@ class Menu extends Component {
                     display: "none"
                 }}></button>
                 <div className="modal center" id="proceed">
-                    <div class="modal-content">
+                    <div className="modal-content">
                     <p>Proceed to Checkout?</p>
                     </div>
-                    <div class="modal-footer" style={{
+                    <div className="modal-footer" style={{
                         textAlign: "center"
                     }}>
                         <button className="btn green modal-action modal-close" 

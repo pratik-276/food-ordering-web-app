@@ -3,24 +3,14 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import * as actions from '../../store/actions/index';
 import SingleItem from './SingleItem/SingleItem';
-import M from 'materialize-css/dist/js/materialize.min.js';
 
 class Checkout extends Component {
-    state = {
-        totalPrice: "0.00"
-    }
-    componentWillMount(){
-        let price = 0;
-        this.props.checkout.map(item => price+=parseFloat(item.price));
-        this.setState({totalPrice: price.toFixed(2)+''});
-    }
     placeOrder = () => {
         const newData = {
             orderData: this.props.checkout,
-            totalPrice: this.state.totalPrice
+            totalPrice: this.props.totalPrice
         }
         this.props.placeOrder(newData);
-        this.setState({totalPrice: "0.00"});
         this.props.history.push("/orders");
     }
     render() { 
@@ -31,23 +21,24 @@ class Checkout extends Component {
                 <ul className="collection with-header">
                     <li className="collection-header center"><h3>CHECKOUT</h3></li>
                 </ul>
-                {this.props.checkout.map(pizza => (
+                {this.props.checkout.map((pizza, index) => (
                         <SingleItem key={pizza.name}
-                            pizza={pizza} />
+                            pizza={pizza}
+                            delete={() => this.props.delCheckout(index)} />
                 ))}
                 <div className="center">
                     <p style={{
                         marginTop: "20px",
                         fontSize: "20px",
                         fontWeight: "bold"
-                    }}>Total Price: ${this.state.totalPrice}</p>
+                    }}>Total Price: ${this.props.totalPrice}</p>
                 </div>
                 <div className="center" style={{
                     marginTop: "20px"
                 }}>
                     <button className="btn btn-large green darken-4 waves effect waves-light"
                         onClick={this.placeOrder}
-                        disabled={this.state.totalPrice==='0.00'}>Place Order</button>
+                        disabled={this.props.totalPrice==0}>Place Order</button>
                 </div>
             </div>
         );
@@ -56,13 +47,15 @@ class Checkout extends Component {
 
 const mapStatetoProps = state => {
     return {
-        checkout: state.pizza.checkout
+        checkout: state.pizza.checkout,
+        totalPrice: state.pizza.totalPrice
     }
 }
 
 const mapDispatchtoProps = dispatch => {
     return {
-        placeOrder: (data) => dispatch(actions.placeOrder(data))
+        placeOrder: (data) => dispatch(actions.placeOrder(data)),
+        delCheckout: (index) => dispatch(actions.delFromCheckout(index))
     }
 }
  
